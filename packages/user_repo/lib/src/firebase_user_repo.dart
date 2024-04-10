@@ -13,30 +13,25 @@ class FirebaseUserRepo implements UserRepository {
 
   @override
   Future<void> logOut() {
-    // TODO: implement logOut
     throw UnimplementedError();
   }
 
   @override
   Future<void> setUserData(MyUser user) {
-    // TODO: implement setUserData
     throw UnimplementedError();
   }
 
   @override
   Future<void> signIn(String email, String password) {
-    // TODO: implement signIn
     throw UnimplementedError();
   }
 
   @override
   Future<void> signUp(MyUser myUser, String password) {
-    // TODO: implement signUp
     throw UnimplementedError();
   }
 
   @override
-  // TODO: implement user
   Stream<MyUser?> get user {
     return _firebaseAuth.authStateChanges().flatMap((firebaseUser) async* {
       if (firebaseUser == null) {
