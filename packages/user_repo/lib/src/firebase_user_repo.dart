@@ -1,7 +1,7 @@
-import 'package:user_repo/src/models/user.dart';
-import 'package:user_repo/src/user_repo.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:user_repo/user_repository.dart';
 
 class FirebaseUserRepo implements UserRepository {
   final FirebaseAuth _firebaseAuth;
@@ -37,5 +37,16 @@ class FirebaseUserRepo implements UserRepository {
 
   @override
   // TODO: implement user
-  Stream<MyUser?> get user => throw UnimplementedError();
+  Stream<MyUser?> get user {
+    return _firebaseAuth.authStateChanges().flatMap((firebaseUser) async* {
+      if (firebaseUser == null) {
+        yield MyUser.empty;
+      } else {
+        yield await userCollection
+            .doc(firebaseUser.uid)
+            .get()
+            .then((value) => MyUser.fromEntity(MyUserEntity.fromDocument(value.data()!)));
+      }
+    });
+  }
 }
