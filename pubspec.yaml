@@ -18,8 +18,8 @@ dependencies:
   flutter_bloc: ^8.1.5
   equatable: ^2.0.5
 
-  user_repo:
-    path: packages/user_repo
+  user_repository:
+    path: packages/user_repository
 
 dev_dependencies:
   flutter_test:
